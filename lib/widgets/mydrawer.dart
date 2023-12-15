@@ -45,7 +45,7 @@ class _MyDrawerState extends State<MyDrawer> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      PageDetail(data: snapshot.data?[i]),
+                                    PageDetail(data: snapshot.data?[i]),
                                 ),
                               )
                             },
