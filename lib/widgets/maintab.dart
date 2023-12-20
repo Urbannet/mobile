@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:mobile/screens/categorypost.dart';
-import 'package:mobile/screens/latestpost.dart';
-import 'package:mobile/screens/photos.dart';
-import 'package:mobile/screens/videos.dart';
-import 'package:mobile/widgets/mydrawer.dart';
+import 'package:fo_proprete_atalian/screens/categorypost.dart';
+import 'package:fo_proprete_atalian/screens/latestpost.dart';
+import 'package:fo_proprete_atalian/screens/photos.dart';
+import 'package:fo_proprete_atalian/screens/videos.dart';
+import 'package:fo_proprete_atalian/widgets/mydrawer.dart';
 
 class MainTab extends StatefulWidget {
   MainTab({Key? key}) : super(key: key);
@@ -16,10 +16,10 @@ class MainTab extends StatefulWidget {
 class _MainTabState extends State<MainTab> with SingleTickerProviderStateMixin {
   TabController? _tabController;
   final List<Tab> topTabs = <Tab>[
-    const Tab(child: Text("ACTUALITES")),
-    const Tab(child: Text("POPULAR")),
-    const Tab(child: Text("VIDEOS")),
-    const Tab(child: Text("PHOTOS")),
+    Tab(child: Text("ACTUALITÉS")),
+    Tab(child: Text("COMMUNIQUÉS")),
+    Tab(child: Text("VIDEOS")),
+    //Tab(child: Text("PHOTOS")),
   ];
 
   @override
@@ -57,13 +57,32 @@ class _MainTabState extends State<MainTab> with SingleTickerProviderStateMixin {
         child: Scaffold(
           key: _scaffoldKey,
           appBar: AppBar(
+            title: InkWell(
+              onTap: () {
+                // Naviguez vers la page d'accueil ici
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MainTab()),
+                );
+              },
+              child: Image.asset(
+                'assets/images/logo.png', // Remplacez cela par le chemin de votre logo
+                //width: 40.0,
+                //height: 40.0,
+              ),
+            ),
+
+/*
             title: Text(
               'FO-ATALIAN',
               style: TextStyle(
                 fontSize: 30,
               ),
             ),
+*/
+            
             actions: [
+              /*
               Container(
                 child: IconButton(
                   icon: Icon(Icons.search),
@@ -78,6 +97,7 @@ class _MainTabState extends State<MainTab> with SingleTickerProviderStateMixin {
                   color: Colors.pink[300],
                 ),
               ),
+              */
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 10.0),
                 child: IconButton(
@@ -107,7 +127,7 @@ class _MainTabState extends State<MainTab> with SingleTickerProviderStateMixin {
               LatestPost(),
               CategoryPost(),
               Video(),
-              Photo(),
+              //Photo(),
             ],
           ),
         ),

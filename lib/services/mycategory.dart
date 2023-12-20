@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 
 class MyCategory {
   String baseUrl =
-      "https://mobile.kitra-consulting.fr/wp-json/wp/v2/posts?_embed&categories=5";
+      "https://fo-atalian.kitra-consulting.fr/wp-json/wp/v2/posts?_embed&categories=5";
   Future<List> getCategoryPost() async {
     try {
       var response = await http.get(Uri.parse(baseUrl));

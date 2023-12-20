@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/screens/pageDetail.dart';
-import 'package:mobile/services/page.dart';
+import 'package:fo_proprete_atalian/screens/pageDetail.dart';
+import 'package:fo_proprete_atalian/services/page.dart';
 
 class MyDrawer extends StatefulWidget {
   MyDrawer({Key? key}) : super(key: key);
@@ -15,7 +15,7 @@ class _MyDrawerState extends State<MyDrawer> {
   Widget build(BuildContext context) {
     return Drawer(
       child: Container(
-        color: Colors.pinkAccent[200],
+        color: Colors.redAccent[200],
         child: Column(
           children: [
             Expanded(
@@ -33,12 +33,11 @@ class _MyDrawerState extends State<MyDrawer> {
                         itemCount: snapshot.data?.length,
                         itemBuilder: (context, i) {
                           return ListTile(
-                            title: Center(
-                              child: Text(
+                            title: Text(
                                 snapshot.data?[i]['title']['rendered'],
                                 style: TextStyle(
-                                    fontSize: 22, color: Colors.white),
-                              ),
+                                    fontSize: 20, color: Colors.white),
+
                             ),
                             onTap: () => {
                               Navigator.push(

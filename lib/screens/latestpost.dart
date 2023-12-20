@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/screens/postdetail.dart';
-import 'package:mobile/services/post.dart';
+import 'package:fo_proprete_atalian/screens/postdetail.dart';
+import 'package:fo_proprete_atalian/services/post.dart';
 
 class LatestPost extends StatefulWidget {
   LatestPost({Key? key}) : super(key: key);
@@ -11,6 +11,13 @@ class LatestPost extends StatefulWidget {
 
 class _LatestPostState extends State<LatestPost> {
   Post postService = Post();
+
+  String removeAllHtmlTags(String htmlText) {
+    RegExp exp = RegExp(r"<[^>]*>", multiLine: true, caseSensitive: true);
+
+    return htmlText.replaceAll(exp, '').replaceAll("&#8217;", "").replaceAll("&#8230;", "");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -33,31 +40,40 @@ class _LatestPostState extends State<LatestPost> {
                       title: Row(
                         children: [
                           Expanded(
-                            child: Image.network(snapshot.data![i]["_embedded"]
-                                ["wp:featuredmedia"][0]["source_url"]),
-                          ),
-                          Expanded(
-                              child: Container(
-                            margin: EdgeInsets.only(bottom: 10.0, left: 10.0),
-                            child: Text(
-                              snapshot.data![i]['title']['rendered'],
-                              style: TextStyle(
-                                  fontSize: 24.0, fontWeight: FontWeight.bold),
-                            ),
-                          ))
+                            child: Image.network(snapshot.data![i]["_embedded"]["wp:featuredmedia"][0]["source_url"]),
+                          )
                         ],
                       ),
                       subtitle: Container(
-                        margin: EdgeInsets.only(bottom: 10.0),
-                        child: Text(
-                          snapshot.data![i]['content']['rendered']
-                              .toString()
-                              .replaceAll("<p>", "")
-                              .replaceAll("</p>", ""),
-                          maxLines: 4,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(fontSize: 20.0),
+                        padding: EdgeInsets.all(1.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              removeAllHtmlTags(snapshot.data![i]['title']['rendered']),
+                              maxLines: 4,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.bold,
+                                //color: Colors.blue,
+                              ),
+                            ),
+                            Text(
+                              removeAllHtmlTags(snapshot.data![i]['content']['rendered']),
+                              maxLines: 4,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 16.0,
+                                //fontStyle: FontStyle.italic,
+                                //color: Colors.green,
+                              ),
+                            ),
+                            SizedBox(height: 10.0), // Espacement entre les textes
+                          ],
                         ),
+
+                        margin: EdgeInsets.only(bottom: 10.0),
                       ),
                       onTap: () {
                         Navigator.push(

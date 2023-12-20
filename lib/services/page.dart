@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class MyPage {
-  String baseUrl = "https://mobile.kitra-consulting.fr/wp-json/wp/v2/pages";
+  String baseUrl = "https://fo-atalian.kitra-consulting.fr/wp-json/wp/v2/pages";
   Future<List> getAllPage() async {
     try {
       var response = await http.get(Uri.parse(baseUrl));

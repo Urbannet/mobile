@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 
 class Post {
   String baseUrl =
-      "https://mobile.kitra-consulting.fr/wp-json/wp/v2/posts?_embed";
+      "https://fo-atalian.kitra-consulting.fr/wp-json/wp/v2/posts?_embed";
   Future<List> getAllPost() async {
     try {
       var response = await http.get(Uri.parse(baseUrl));
