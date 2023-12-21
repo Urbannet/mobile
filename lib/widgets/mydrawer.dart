@@ -11,6 +11,7 @@ class MyDrawer extends StatefulWidget {
 
 class _MyDrawerState extends State<MyDrawer> {
   MyPage pageService = MyPage();
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -18,26 +19,37 @@ class _MyDrawerState extends State<MyDrawer> {
         color: Colors.redAccent[200],
         child: Column(
           children: [
+            Container(
+              height: 200, // Ajustez la hauteur selon vos besoins
+              child: DrawerHeader(
+                margin: EdgeInsets.zero,
+                decoration: BoxDecoration(
+                  color: Colors.redAccent[200],
+                ),
+                child: Image.asset(
+                  'assets/images/Logo_FO_ARA.png',
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
             Expanded(
-                child: Container(
-              child: FutureBuilder<List>(
-                future: pageService.getAllPage(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    if (snapshot.data?.length == 0) {
-                      return Center(
-                        child: Text("No Page"),
-                      );
-                    }
-                    return ListView.builder(
+              child: Container(
+                child: FutureBuilder<List>(
+                  future: pageService.getAllPage(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      if (snapshot.data?.length == 0) {
+                        return Center(
+                          child: Text("No Page"),
+                        );
+                      }
+                      return ListView.builder(
                         itemCount: snapshot.data?.length,
                         itemBuilder: (context, i) {
                           return ListTile(
                             title: Text(
-                                snapshot.data?[i]['title']['rendered'],
-                                style: TextStyle(
-                                    fontSize: 20, color: Colors.white),
-
+                              snapshot.data?[i]['title']['rendered'],
+                              style: TextStyle(fontSize: 20, color: Colors.white),
                             ),
                             onTap: () => {
                               Navigator.push(
@@ -49,19 +61,21 @@ class _MyDrawerState extends State<MyDrawer> {
                               )
                             },
                           );
-                        });
-                  } else if (snapshot.hasError) {
-                    return Center(
-                      child: Text(snapshot.error.toString()),
-                    );
-                  } else {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                },
+                        },
+                      );
+                    } else if (snapshot.hasError) {
+                      return Center(
+                        child: Text(snapshot.error.toString()),
+                      );
+                    } else {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                  },
+                ),
               ),
-            ))
+            ),
           ],
         ),
       ),

@@ -5,6 +5,7 @@ import 'package:fo_proprete_atalian/screens/latestpost.dart';
 import 'package:fo_proprete_atalian/screens/photos.dart';
 import 'package:fo_proprete_atalian/screens/videos.dart';
 import 'package:fo_proprete_atalian/widgets/mydrawer.dart';
+import 'package:fo_proprete_atalian/widgets/rightdrawer.dart';
 
 class MainTab extends StatefulWidget {
   MainTab({Key? key}) : super(key: key);
@@ -57,6 +58,7 @@ class _MainTabState extends State<MainTab> with SingleTickerProviderStateMixin {
         child: Scaffold(
           key: _scaffoldKey,
           appBar: AppBar(
+            centerTitle: true,
             title: InkWell(
               onTap: () {
                 // Naviguez vers la page d'accueil ici
@@ -67,7 +69,7 @@ class _MainTabState extends State<MainTab> with SingleTickerProviderStateMixin {
               },
               child: Image.asset(
                 'assets/images/logo.png', // Remplacez cela par le chemin de votre logo
-                //width: 40.0,
+                width: 190.0,
                 //height: 40.0,
               ),
             ),
@@ -101,14 +103,14 @@ class _MainTabState extends State<MainTab> with SingleTickerProviderStateMixin {
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 10.0),
                 child: IconButton(
-                  icon: Icon(Icons.menu),
+                  icon: Icon(Icons.settings),
                   splashColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onPressed: () => _scaffoldKey.currentState!.openEndDrawer(),
                 ),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.pink[300],
+                  color: Colors.redAccent[200],
                 ),
               ),
             ],
@@ -118,8 +120,11 @@ class _MainTabState extends State<MainTab> with SingleTickerProviderStateMixin {
               tabs: topTabs,
             ),
           ),
-          endDrawer: Container(
+          drawer: Container(
             child: MyDrawer(),
+          ),
+          endDrawer: Container(
+            child: RightDrawer(),
           ),
           body: TabBarView(
             controller: _tabController,

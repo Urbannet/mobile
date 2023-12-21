@@ -8,7 +8,7 @@ class MyCategory {
   Future<List> getCategoryPost() async {
     try {
       var response = await http.get(Uri.parse(baseUrl));
-      print(response);
+      // print(response);
       if (response.statusCode == 200) {
         return jsonDecode(response.body);
       } else {
