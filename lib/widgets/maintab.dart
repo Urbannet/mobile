@@ -6,6 +6,7 @@ import 'package:fo_proprete_atalian/screens/photos.dart';
 import 'package:fo_proprete_atalian/screens/videos.dart';
 import 'package:fo_proprete_atalian/widgets/mydrawer.dart';
 import 'package:fo_proprete_atalian/widgets/rightdrawer.dart';
+import 'package:fo_proprete_atalian/screens/actualites.dart';
 
 class MainTab extends StatefulWidget {
   MainTab({Key? key}) : super(key: key);
@@ -19,8 +20,9 @@ class _MainTabState extends State<MainTab> with SingleTickerProviderStateMixin {
   final List<Tab> topTabs = <Tab>[
     Tab(child: Text("ACTUALITÉS")),
     Tab(child: Text("COMMUNIQUÉS")),
-    Tab(child: Text("VIDEOS")),
+    //Tab(child: Text("AUTRES")),
     //Tab(child: Text("PHOTOS")),
+    //Tab(child: Text("LATEST")),
   ];
 
   @override
@@ -68,21 +70,12 @@ class _MainTabState extends State<MainTab> with SingleTickerProviderStateMixin {
                 );
               },
               child: Image.asset(
-                'assets/images/logo.png', // Remplacez cela par le chemin de votre logo
+                'assets/images/logo.png',
                 width: 190.0,
                 //height: 40.0,
               ),
             ),
 
-/*
-            title: Text(
-              'FO-ATALIAN',
-              style: TextStyle(
-                fontSize: 30,
-              ),
-            ),
-*/
-            
             actions: [
               /*
               Container(
@@ -129,10 +122,11 @@ class _MainTabState extends State<MainTab> with SingleTickerProviderStateMixin {
           body: TabBarView(
             controller: _tabController,
             children: [
-              LatestPost(),
+              Actualite(),
               CategoryPost(),
-              Video(),
+              //Video(),
               //Photo(),
+              //LatestPost(),
             ],
           ),
         ),
