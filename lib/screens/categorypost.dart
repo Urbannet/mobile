@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fo_proprete_atalian/screens/postdetail.dart';
 import 'package:fo_proprete_atalian/services/mycategory.dart';
-import 'package:fo_proprete_atalian/services/post.dart';
 
 class CategoryPost extends StatefulWidget {
   CategoryPost({Key? key}) : super(key: key);

@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:dio/dio.dart';
 
 class MyPage {
   String baseUrl = "https://fo-atalian.kitra-consulting.fr/wp-json/wp/v2/pages";

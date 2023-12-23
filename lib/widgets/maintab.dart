@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fo_proprete_atalian/screens/categorypost.dart';
-import 'package:fo_proprete_atalian/screens/latestpost.dart';
-import 'package:fo_proprete_atalian/screens/photos.dart';
-import 'package:fo_proprete_atalian/screens/videos.dart';
+import 'package:fo_proprete_atalian/screens/login.dart';
 import 'package:fo_proprete_atalian/widgets/mydrawer.dart';
 import 'package:fo_proprete_atalian/widgets/rightdrawer.dart';
 import 'package:fo_proprete_atalian/screens/actualites.dart';
@@ -18,20 +16,22 @@ class MainTab extends StatefulWidget {
 class _MainTabState extends State<MainTab> with SingleTickerProviderStateMixin {
   TabController? _tabController;
   final List<Tab> topTabs = <Tab>[
+
+    // Tab(child: Text("Connexion")),
+
     Tab(child: Text("ACTUALITÉS")),
     Tab(child: Text("COMMUNIQUÉS")),
-    //Tab(child: Text("AUTRES")),
-    //Tab(child: Text("PHOTOS")),
-    //Tab(child: Text("LATEST")),
+
+
   ];
 
   @override
   void initState() {
     _tabController =
-        TabController(length: topTabs.length, initialIndex: 0, vsync: this)
-          ..addListener(() {
-            setState(() {});
-          });
+    TabController(length: topTabs.length, initialIndex: 0, vsync: this)
+      ..addListener(() {
+        setState(() {});
+      });
     super.initState();
   }
 
@@ -60,6 +60,7 @@ class _MainTabState extends State<MainTab> with SingleTickerProviderStateMixin {
         child: Scaffold(
           key: _scaffoldKey,
           appBar: AppBar(
+            backgroundColor: Color.fromRGBO(255, 204, 204, 1.0), // Couleur RGB
             centerTitle: true,
             title: InkWell(
               onTap: () {
@@ -77,22 +78,6 @@ class _MainTabState extends State<MainTab> with SingleTickerProviderStateMixin {
             ),
 
             actions: [
-              /*
-              Container(
-                child: IconButton(
-                  icon: Icon(Icons.search),
-                  splashColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  onPressed: () {
-                    print('Search Button Clicked');
-                  },
-                ),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.pink[300],
-                ),
-              ),
-              */
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 10.0),
                 child: IconButton(
@@ -122,11 +107,13 @@ class _MainTabState extends State<MainTab> with SingleTickerProviderStateMixin {
           body: TabBarView(
             controller: _tabController,
             children: [
+
+              // Login(),
+
               Actualite(),
               CategoryPost(),
-              //Video(),
-              //Photo(),
               //LatestPost(),
+
             ],
           ),
         ),

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fo_proprete_atalian/screens/pageDetail.dart';
-import 'package:fo_proprete_atalian/services/page.dart';
 
 class RightDrawer extends StatelessWidget {
   @override

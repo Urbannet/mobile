@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:fo_proprete_atalian/screens/espaces_prives.dart';
 import 'package:fo_proprete_atalian/screens/pageDetail.dart';
 import 'package:fo_proprete_atalian/services/page.dart';
+import 'package:fo_proprete_atalian/widgets/maintab.dart';
 
 class MyDrawer extends StatefulWidget {
   MyDrawer({Key? key}) : super(key: key);
@@ -11,6 +14,21 @@ class MyDrawer extends StatefulWidget {
 
 class _MyDrawerState extends State<MyDrawer> {
   MyPage pageService = MyPage();
+  final FlutterSecureStorage _storage = FlutterSecureStorage();
+  bool connected = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkLoginStatus();
+  }
+
+  Future<void> _checkLoginStatus() async {
+    String? token = await _storage.read(key: 'jwt_token');
+    setState(() {
+      connected = token != null;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +38,7 @@ class _MyDrawerState extends State<MyDrawer> {
         child: Column(
           children: [
             Container(
-              height: 200, // Ajustez la hauteur selon vos besoins
+              height: 200,
               child: DrawerHeader(
                 margin: EdgeInsets.zero,
                 decoration: BoxDecoration(
@@ -76,6 +94,34 @@ class _MyDrawerState extends State<MyDrawer> {
                 ),
               ),
             ),
+            ListTile(
+              title: Text(
+                'Espaces privés',
+                style: TextStyle(fontSize: 20, color: Colors.white),
+              ),
+              onTap: () => {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => EspacesPrives(),
+                  ),
+                ),
+              },
+            ),
+            if (connected)
+              ListTile(
+                leading: Icon(Icons.exit_to_app),
+                title: Text('Se déconnecter'),
+                onTap: () async {
+                  // Déconnexion ici
+                  await _storage.delete(key: 'jwt_token');
+                  _checkLoginStatus(); // Met à jour l'état après la déconnexion
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => MainTab()),
+                  );
+                },
+              ),
           ],
         ),
       ),

@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'FO-ATALIAN',
+      title: 'FO-ATALIAN-PROPRETE',
       theme: ThemeData(
         primarySwatch: Colors.pink,
       ),
