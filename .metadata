@@ -4,7 +4,7 @@
 # This file should be version controlled and should not be manually edited.
 
 version:
-  revision: "cd718db732feaacf1f544646c2796ce26662f21c"
+  revision: "02d1d64e7f5fdb239ad865705a93c381159d49c1"
   channel: "master"
 
 project_type: app
@@ -13,17 +13,17 @@ project_type: app
 migration:
   platforms:
     - platform: root
-      create_revision: cd718db732feaacf1f544646c2796ce26662f21c
-      base_revision: cd718db732feaacf1f544646c2796ce26662f21c
+      create_revision: 02d1d64e7f5fdb239ad865705a93c381159d49c1
+      base_revision: 02d1d64e7f5fdb239ad865705a93c381159d49c1
     - platform: linux
-      create_revision: cd718db732feaacf1f544646c2796ce26662f21c
-      base_revision: cd718db732feaacf1f544646c2796ce26662f21c
+      create_revision: 02d1d64e7f5fdb239ad865705a93c381159d49c1
+      base_revision: 02d1d64e7f5fdb239ad865705a93c381159d49c1
     - platform: macos
-      create_revision: cd718db732feaacf1f544646c2796ce26662f21c
-      base_revision: cd718db732feaacf1f544646c2796ce26662f21c
+      create_revision: 02d1d64e7f5fdb239ad865705a93c381159d49c1
+      base_revision: 02d1d64e7f5fdb239ad865705a93c381159d49c1
     - platform: windows
-      create_revision: cd718db732feaacf1f544646c2796ce26662f21c
-      base_revision: cd718db732feaacf1f544646c2796ce26662f21c
+      create_revision: 02d1d64e7f5fdb239ad865705a93c381159d49c1
+      base_revision: 02d1d64e7f5fdb239ad865705a93c381159d49c1
 
   # User provided section
 

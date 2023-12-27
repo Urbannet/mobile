@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:fo_proprete_atalian/screens/login_form.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fo_proprete_atalian/screens/espaces_prives.dart';
+import 'package:jwt_decode/jwt_decode.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -39,13 +40,26 @@ class _LoginState extends State<Login> {
     if (response.statusCode == 200) {
       final Map<String, dynamic> data = json.decode(response.body);
 
+
+      print(data);
+
       if (data.containsKey('data') && data['data'].containsKey('token')) {
-        String token = data['data']['token'];
+        String token 		= data['data']['token'];
+        String firstName 	= data['data']['firstName'];
+        String lastName 	= data['data']['lastName'];
+
+        String role 	= '';
+        if (data.containsKey('role')){
+          role = data['role'];
+        }
 
         final storage = FlutterSecureStorage();
         await storage.write(key: 'jwt_token', value: token);
+        await storage.write(key: 'firstName', value: firstName);
+        await storage.write(key: 'lastName', value: lastName);
+        await storage.write(key: 'role', value: role);
 
-        print('Token: $token');
+        // print('Token: $token');
 
         Navigator.pushReplacement(
           context,

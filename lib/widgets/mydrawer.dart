@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:fo_proprete_atalian/screens/adhesion.dart';
 import 'package:fo_proprete_atalian/screens/espaces_prives.dart';
 import 'package:fo_proprete_atalian/screens/pageDetail.dart';
 import 'package:fo_proprete_atalian/services/page.dart';
@@ -93,6 +94,20 @@ class _MyDrawerState extends State<MyDrawer> {
                   },
                 ),
               ),
+            ),
+            ListTile(
+              title: Text(
+                'Adhésion',
+                style: TextStyle(fontSize: 20, color: Colors.white),
+              ),
+              onTap: () => {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AdhesionPage(),
+                  ),
+                ),
+              },
             ),
             ListTile(
               title: Text(
