@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fo_proprete_atalian/widgets/appbar_custom.dart';
 
 void main() => runApp(MyApp());
 
@@ -15,9 +16,7 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Drawer Example'),
-      ),
+      appBar: CustomAppBar(),
       body: Center(
         child: Text('Contenu de l\'application'),
       ),

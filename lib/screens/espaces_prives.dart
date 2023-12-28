@@ -6,6 +6,7 @@ import 'package:fo_proprete_atalian/widgets/maintab.dart';
 import 'package:fo_proprete_atalian/widgets/mydrawer.dart';
 import 'package:fo_proprete_atalian/widgets/right_drawer_espace_prives.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:fo_proprete_atalian/widgets/appbar_custom.dart';
 
 class EspacesPrives extends StatefulWidget {
   const EspacesPrives({Key? key}) : super(key: key);
@@ -37,7 +38,7 @@ class _EspacesPrivesState extends State<EspacesPrives> {
       userRole = '$role';
     });
   }
-
+  
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<String?>(
@@ -77,16 +78,7 @@ class _EspacesPrivesState extends State<EspacesPrives> {
 
 Widget buildContent() {
   return Scaffold(
-    appBar: AppBar(
-      backgroundColor: Color.fromRGBO(255, 204, 204, 1.0),
-      title: Center(
-        child: Image.asset(
-          'assets/images/logo.png',
-          width: 190.0,
-        ),
-      ),
-      centerTitle: true,
-    ),
+      appBar: CustomAppBar(),
     drawer: Container(
       child: MyDrawer(),
     ),
@@ -144,16 +136,7 @@ Widget buildContent() {
 
   Widget buildContentDemandeAbonnementOuResilier() {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color.fromRGBO(255, 204, 204, 1.0),
-        title: Center(
-          child: Image.asset(
-            'assets/images/logo.png',
-            width: 190.0,
-          ),
-        ),
-        centerTitle: true,
-      ),
+      appBar: CustomAppBar(),
       drawer: Container(
         child: MyDrawer(),
       ),

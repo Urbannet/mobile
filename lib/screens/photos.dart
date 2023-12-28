@@ -37,7 +37,7 @@ class _PhotoState extends State<Photo> {
 
   @override
   Widget build(BuildContext context) {
-    if (posts == null) {
+    if (posts.isEmpty) {
       return Center(
         child: CircularProgressIndicator(),
       );

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:fo_proprete_atalian/widgets/appbar_custom.dart';
 import 'package:http/http.dart' as http;
 
 class PublicationInterne extends StatefulWidget {
@@ -49,7 +50,7 @@ class _PublicationInterneState extends State<PublicationInterne> {
 
   @override
   Widget build(BuildContext context) {
-    if (posts_rhone_alpes == null && posts_nationale == null) {
+    if (posts_rhone_alpes.isEmpty && posts_nationale.isEmpty) {
       return Center(
         child: CircularProgressIndicator(),
       );
@@ -191,16 +192,7 @@ class PostDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Center(
-          child: Image.asset(
-            'assets/images/logo.png',
-            width: 190.0,
-          ),
-        ),
-        centerTitle: true,
-      ),
-
+      appBar: CustomAppBar(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

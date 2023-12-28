@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:fo_proprete_atalian/widgets/appbar_custom.dart';
 import 'package:http/http.dart' as http;
 
 class AdhesionPage extends StatefulWidget {
@@ -20,10 +21,8 @@ class _AdhesionPageState extends State<AdhesionPage> {
   Future<String> getToken() async {
     final String apiUrl = 'https://fo-atalian.kitra-consulting.fr/wp-json/jwt-auth/v1/token';
 
-    // Replace 'your-username' with an actual WordPress username.
     final String username = 'fo_create_user';
-    // Use the value of JWT_AUTH_SECRET_KEY as the password.
-    final String password = 'nuWs 7k1j rKjV 0Nyw CGah vbDZ'; // Replace with the actual secret key.
+    final String password = 'nuWs 7k1j rKjV 0Nyw CGah vbDZ';
 
     try {
       final response = await http.post(
@@ -53,7 +52,22 @@ class _AdhesionPageState extends State<AdhesionPage> {
   }
 
   Future<void> createUser() async {
+    // Vérifier si les champs obligatoires sont vides
+    if (firstNameController.text.isEmpty ||
+        lastNameController.text.isEmpty ||
+        usernameController.text.isEmpty ||
+        emailController.text.isEmpty ||
+        passwordController.text.isEmpty) {
+      setState(() {
+        errorMessage = 'Veuillez remplir tous les champs obligatoires.';
+        successMessage = '';
+      });
+      print('Champs vides. Message d\'erreur : $errorMessage');
+      return;
+    }
+
     try {
+      print('Tentative de création de l\'utilisateur...');
       final String token = await getToken();
 
       final String apiUrl = 'https://fo-atalian.kitra-consulting.fr/wp-json/wp/v2/users';
@@ -71,23 +85,30 @@ class _AdhesionPageState extends State<AdhesionPage> {
             'username': usernameController.text,
             'email': emailController.text,
             'password': passwordController.text,
-          'roles': ['demande_abonnement'], // Assign the 'demande_abonnement' role
+            'roles': ['demande_abonnement'],
           },
         ),
       );
 
+      print('Réponse du serveur : ${response.statusCode}');
+      print('Réponse du serveur : ${response.body}');
+
       if (response.statusCode == 201) {
         final Map<String, dynamic> responseData = json.decode(response.body);
         final String message = responseData['message'] ?? 'User created successfully';
-        print('User created successfully: $message');
+        print('Utilisateur créé avec succès: $message');
         setState(() {
-          successMessage = message;
+          successMessage = ''
+              'Nous vous remercions chaleureusement pour avoir soumis votre demande d\'adhésion. \n'
+              'Votre engagement contribue à renforcer notre communauté, et nous sommes honorés de vous accueillir parmi nous. \n'
+              'Ensemble, nous poursuivrons notre mission commune en faveur des droits et des intérêts des travailleurs. \n'
+              'Merci pour votre soutien précieux.'; // Message de remerciement
           errorMessage = '';
         });
       } else {
         final Map<String, dynamic> responseData = json.decode(response.body);
         final String message = responseData['message'] ?? 'Failed to create user';
-        print('Failed to create user. Error: ${response.statusCode}, Message: $message');
+        print('Échec de la création de l\'utilisateur. Erreur: ${response.statusCode}, Message: $message');
         setState(() {
           errorMessage = message;
           successMessage = '';
@@ -105,59 +126,147 @@ class _AdhesionPageState extends State<AdhesionPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Adhésion'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TextField(
-              controller: firstNameController,
-              decoration: InputDecoration(labelText: 'First Name'),
-            ),
-            TextField(
-              controller: lastNameController,
-              decoration: InputDecoration(labelText: 'Last Name'),
-            ),
-            TextField(
-              controller: usernameController,
-              decoration: InputDecoration(labelText: 'Username'),
-            ),
-            TextField(
-              controller: emailController,
-              decoration: InputDecoration(labelText: 'Email'),
-            ),
-            TextField(
-              controller: passwordController,
-              decoration: InputDecoration(labelText: 'Password'),
-              obscureText: true,
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                createUser();
-              },
-              child: Text('Create User'),
-            ),
-            if (errorMessage.isNotEmpty)
-              Padding(
-                padding: const EdgeInsets.only(top: 16.0),
-                child: Text(
-                  errorMessage,
-                  style: TextStyle(color: Colors.red),
-                ),
+      appBar: CustomAppBar(),
+      body: Container(
+        color: Colors.red,
+        child: Center(
+          child: Align(
+            alignment: Alignment.topCenter,
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(height: 20.0),
+                  if (successMessage.isEmpty)
+                    Text(
+                      'REMPLISSEZ LE FORMULAIRE D\'ADHÉSION',
+                      style: TextStyle(
+                        fontFamily: 'Arial',
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24.0,
+                        color: Colors.white,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  if (successMessage.isNotEmpty)
+                    Text(
+                      successMessage,
+                      style: TextStyle(
+                        fontFamily: 'Arial',
+                        fontWeight: FontWeight.normal,
+                        fontStyle: FontStyle.normal,
+                        fontSize: 20.0,
+                        color: Colors.white,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  SizedBox(height: 20.0),
+                  if (successMessage.isEmpty)
+                    Column(
+                      children: [
+                        TextField(
+                          controller: firstNameController,
+                          decoration: InputDecoration(
+                            labelText: 'Prénom',
+                            labelStyle: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Arial',
+                              fontWeight: FontWeight.normal,
+                              fontStyle: FontStyle.normal,
+                              fontSize: 20.0,
+                            ),
+                          ),
+                        ),
+                        TextField(
+                          controller: lastNameController,
+                          decoration: InputDecoration(
+                            labelText: 'Nom',
+                            labelStyle: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Arial',
+                              fontWeight: FontWeight.normal,
+                              fontStyle: FontStyle.normal,
+                              fontSize: 20.0,
+                            ),
+                          ),
+                        ),
+                        TextField(
+                          controller: usernameController,
+                          decoration: InputDecoration(
+                            labelText: 'Identifiant',
+                            labelStyle: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Arial',
+                              fontWeight: FontWeight.normal,
+                              fontStyle: FontStyle.normal,
+                              fontSize: 20.0,
+                            ),
+                          ),
+                        ),
+                        TextField(
+                          controller: emailController,
+                          decoration: InputDecoration(
+                            labelText: 'Email',
+                            labelStyle: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Arial',
+                              fontWeight: FontWeight.normal,
+                              fontStyle: FontStyle.normal,
+                              fontSize: 20.0,
+                            ),
+                          ),
+                        ),
+                        TextField(
+                          controller: passwordController,
+                          decoration: InputDecoration(
+                            labelText: 'Mot de passe',
+                            labelStyle: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Arial',
+                              fontWeight: FontWeight.normal,
+                              fontStyle: FontStyle.normal,
+                              fontSize: 20.0,
+                            ),
+                          ),
+                          obscureText: true,
+                        ),
+                        SizedBox(height: 20),
+                        ElevatedButton(
+                          onPressed: () {
+                            createUser();
+                          },
+                          child: Text(
+                            'Valider mon inscription',
+                            style: TextStyle(
+                              fontFamily: 'Arial',
+                              fontWeight: FontWeight.normal,
+                              fontStyle: FontStyle.normal,
+                              fontSize: 22.0,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  if (errorMessage.isNotEmpty)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16.0),
+                      child: Text(
+                        errorMessage,
+                        style: TextStyle(
+                          fontFamily: 'Arial',
+                          fontWeight: FontWeight.normal,
+                          fontStyle: FontStyle.normal,
+                          fontSize: 20.0,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                ],
               ),
-            if (successMessage.isNotEmpty)
-              Padding(
-                padding: const EdgeInsets.only(top: 16.0),
-                child: Text(
-                  successMessage,
-                  style: TextStyle(color: Colors.green),
-                ),
-              ),
-          ],
+            ),
+          ),
         ),
       ),
     );

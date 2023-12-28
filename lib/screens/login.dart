@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'package:fo_proprete_atalian/screens/login_form.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fo_proprete_atalian/screens/espaces_prives.dart';
-import 'package:jwt_decode/jwt_decode.dart';
+import 'package:fo_proprete_atalian/widgets/appbar_custom.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -116,20 +116,11 @@ class _LoginState extends State<Login> {
       ),
     );
   }
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color.fromRGBO(255, 204, 204, 1.0), // Couleur RGB
-        title: Center(
-          child: Image.asset(
-            'assets/images/logo.png',
-            width: 190.0,
-          ),
-        ),
-        centerTitle: true,
-      ),
+      appBar: CustomAppBar(),
       body: Center(
         child: LoginForm(
           onSubmit: (username, password) => _login(username, password, context),

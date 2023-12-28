@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fo_proprete_atalian/widgets/appbar_custom.dart';
 
 class PostDetail extends StatelessWidget {
   final data;
@@ -13,10 +14,8 @@ class PostDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("FO-ATALIAN - Latest  Post"),
-      ),
-      body: ListView(
+		appBar: CustomAppBar(),
+		body: ListView(
         padding: const EdgeInsets.all(8),
         children: <Widget>[
           Center(
