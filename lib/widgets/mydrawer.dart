@@ -3,6 +3,9 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fo_proprete_atalian/screens/adhesion.dart';
 import 'package:fo_proprete_atalian/screens/espaces_prives.dart';
 import 'package:fo_proprete_atalian/screens/pageDetail.dart';
+import 'package:fo_proprete_atalian/screens/publication_avec_commentaires.dart';
+import 'package:fo_proprete_atalian/screens/publication_interne.dart';
+import 'package:fo_proprete_atalian/screens/publication_votes.dart';
 import 'package:fo_proprete_atalian/services/page.dart';
 import 'package:fo_proprete_atalian/widgets/maintab.dart';
 
@@ -94,6 +97,34 @@ class _MyDrawerState extends State<MyDrawer> {
                   },
                 ),
               ),
+            ),
+            ListTile(
+              title: Text(
+                'Publication Votes',
+                style: TextStyle(fontSize: 20, color: Colors.white),
+              ),
+              onTap: () => {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => PublicationVotes(),
+                  ),
+                ),
+              },
+            ),
+            ListTile(
+              title: Text(
+                'Publication avec commentaire',
+                style: TextStyle(fontSize: 20, color: Colors.white),
+              ),
+              onTap: () => {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => PublicationAvecCommentaires(),
+                  ),
+                ),
+              },
             ),
             ListTile(
               title: Text(

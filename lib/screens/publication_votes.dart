@@ -3,14 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:fo_proprete_atalian/widgets/appbar_custom.dart';
 import 'package:http/http.dart' as http;
 
-class PublicationInterne extends StatefulWidget {
+class PublicationVotes extends StatefulWidget {
   @override
-  _PublicationInterneState createState() => _PublicationInterneState();
+  _PublicationVotesState createState() => _PublicationVotesState();
 }
 
-class _PublicationInterneState extends State<PublicationInterne> {
+class _PublicationVotesState extends State<PublicationVotes> {
   late List<Post> posts_rhone_alpes = [];
-  late List<Post> posts_nationale = [];
 
   String removeAllHtmlTags(String htmlText) {
     RegExp exp = RegExp(r"<[^>]*>", multiLine: true, caseSensitive: true);
@@ -36,21 +35,11 @@ class _PublicationInterneState extends State<PublicationInterne> {
       throw Exception('Failed to load posts');
     }
 
-    final response_nationale =
-        await http.get(Uri.parse('https://fo-atalian.kitra-consulting.fr/wp-json/wp/v2/posts?_embed&categories=5'));
-    if (response_nationale.statusCode == 200) {
-      final List<dynamic> responseData = json.decode(response_nationale.body);
-      setState(() {
-        posts_nationale = responseData.map((data) => Post.fromJson(data)).toList();
-      });
-    } else {
-      throw Exception('Failed to load posts');
-    }
   }
 
   @override
   Widget build(BuildContext context) {
-    if (posts_rhone_alpes.isEmpty && posts_nationale.isEmpty) {
+    if (posts_rhone_alpes.isEmpty) {
       return Center(
         child: CircularProgressIndicator(),
       );
@@ -65,7 +54,7 @@ class _PublicationInterneState extends State<PublicationInterne> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _buildListWithTitle('Actualité Auvergne Rhône Alpes', posts_rhone_alpes, '3'),
+                _buildListWithTitle(posts_rhone_alpes, '3'),
               ],
             ),
           ),
@@ -74,87 +63,66 @@ class _PublicationInterneState extends State<PublicationInterne> {
     );
   }
 
-Widget _buildListWithTitle(String title, List<Post> posts, String category) {
+  Widget _buildListWithTitle(List<Post> posts, String category) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          alignment: Alignment.center,
-          padding: EdgeInsets.all(8.0),
-          decoration: BoxDecoration(
-            color: Colors.redAccent,
-            borderRadius: BorderRadius.circular(8.0),
-          ),
-          child: Text(
-            title,
-            style: category == '3'
-                ? TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18.0,
-                    color: Colors.white,
-                  )
-                : TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18.0,
-                    color: Colors.white,
-                  ),
-          ),
-        ),
-      ),
-      // Utilisez une colonne au lieu d'une ListView.builder
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: posts.map((post) {
-          return GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => PostDetailScreen(post: post),
-                ),
-              );
-            },
-            child: Card(
-              margin: EdgeInsets.all(8.0),
-              child: Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Image.network(
-                      post.imageUrl,
-                      height: 100,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
-                    SizedBox(height: 8.0),
-                    Text(
-                      post.title,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16.0,
-                      ),
-                    ),
-                    SizedBox(height: 4.0),
-                    Text(
-                      removeAllHtmlTags(post.content),
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
-                ),
-              ),
+    children: posts.map((post) {
+      return GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => PostDetailScreen(post: post),
             ),
           );
-        }).toList(),
-      ),
-    ],
+        },
+        child: Card(
+          margin: EdgeInsets.all(8.0),
+          child: Container(
+            width: double.infinity,
+            padding: EdgeInsets.all(8.0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: 100,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage(post.imageUrl),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                SizedBox(width: 8.0),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        post.title,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16.0,
+                        ),
+                      ),
+                      SizedBox(height: 4.0),
+                      Text(
+                        removeAllHtmlTags(post.content),
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }).toList(),
   );
 }
-
 
 }
 

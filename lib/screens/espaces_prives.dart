@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:fo_proprete_atalian/screens/login.dart';
 import 'package:fo_proprete_atalian/screens/publication_interne.dart';
+import 'package:fo_proprete_atalian/screens/publication_votes.dart';
 import 'package:fo_proprete_atalian/widgets/maintab.dart';
 import 'package:fo_proprete_atalian/widgets/mydrawer.dart';
 import 'package:fo_proprete_atalian/widgets/right_drawer_espace_prives.dart';
@@ -103,7 +104,7 @@ Widget buildContent() {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => PublicationInterne()));
                   }),
                   buildListItem('Votes', '', Icons.how_to_vote, () {}, () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => PublicationInterne()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => PublicationVotes()));
                   }),
                   buildListItem('Questions réponses', '', Icons.help, () {}, () {
                     Navigator.push(context, MaterialPageRoute(builder: (context) => PublicationInterne()));

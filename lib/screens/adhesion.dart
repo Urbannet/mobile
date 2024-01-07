@@ -247,6 +247,7 @@ class _AdhesionPageState extends State<AdhesionPage> {
                             ),
                           ),
                         ),
+                        SizedBox(height: 30),
                       ],
                     ),
                   if (errorMessage.isNotEmpty)
